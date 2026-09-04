@@ -1,4 +1,4 @@
-const http = require('http');
+// const http = require('http');
 const fs = require('fs');
 
 // function requestListener(req, res){
@@ -6,7 +6,7 @@ const fs = require('fs');
 // }
 // http.createServer(requestListener);
 
-const server = http.createServer((req, res) => {
+const userRequestHandler = (req, res) => {
   console.log(req.url, req.method);
 
   if (req.url === '/') {
@@ -67,9 +67,11 @@ const server = http.createServer((req, res) => {
   res.write('</body>');
   res.write('</html>');
   res.end();
-});
+};
 
-const PORT = 3000;
-server.listen(PORT, () => {
-  console.log(`Server is running on address http://localhost:${PORT}`);
-});    // Number(3000) is called port number  
+// const PORT = 3000;
+// server.listen(PORT, () => {
+//   console.log(`Server is running on address http://localhost:${PORT}`);
+// });    // Number(3000) is called port number  
+
+module.exports = userRequestHandler;
