@@ -9,6 +9,7 @@ const express = require('express');
 const userRouter = require('./routes/userRouter');
 const {hostRouter} = require('./routes/hostRouter');
 const rootDir = require('./utils/pathUtil');
+const errorController = require('./controllers/error')
 
 const app = express();
 
@@ -26,9 +27,7 @@ app.use(hostRouter);
 
 app.use(express.static(path.join(rootDir, 'public')));
 
-app.use((req, res, next) => {
-  res.status(404).render('404', {pageTitle: 'Page not found'});
-})
+app.use(errorController.pageNotFound);
 
 // app.use(bodyParser.urlencoded());
 

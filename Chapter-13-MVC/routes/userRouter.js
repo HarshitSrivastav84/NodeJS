@@ -7,14 +7,8 @@ const userRouter = express.Router();
 
 // Local module
 const rootDir = require('../utils/pathUtil');
-const { registeredHomes } = require('./hostRouter');
+const homesController = require('../controllers/homes')
 
-userRouter.get("/", (req, res, next) => {
-  console.log(registeredHomes);
-  // res.sendFile(path.join(rootDir, 'views', 'home.html'));
-
-  // After EJS
-  res.render('home', {registeredHomes: registeredHomes, pageTitle: 'airbnb home'});
-});
+userRouter.get("/", homesController.getHomes);
 
 module.exports = userRouter;
