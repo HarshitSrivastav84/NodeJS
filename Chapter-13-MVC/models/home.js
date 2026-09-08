@@ -4,7 +4,7 @@ const path = require('path');
 const rootDir = require('../utils/pathUtil');
 
 // Fake database
-let registeredHomes = [];
+// let registeredHomes = [];
 
 module.exports = class Home {
   constructor(houseName, price, location, rating, photoURL){
@@ -17,22 +17,25 @@ module.exports = class Home {
 
   // Home object banake usko save karne ki koshish ki ja rahi hai
   save() {
-    registeredHomes.push(this);
+    Home.fetchAll(registeredHomes => {
+      registeredHomes.push(this);
     const homeDataPath = path.join(rootDir, 'data', 'homes.json');
     fs.writeFile(homeDataPath, JSON.stringify(registeredHomes), error => {
       console.log("File writing concluded", error);
-    })
+    });
+    });
   }
 
 // Called by directly class name
-  static fetchAll() {
+  static fetchAll(callback) {
     const homeDataPath = path.join(rootDir, 'data', 'homes.json');
     fs.readFile(homeDataPath, (err, data) => {
       console.log("File read:", err, data);
       if(!err){
-        registeredHomes =  JSON.parse(data);
+        callback(JSON.parse(data));
+      }else{
+        callback([]);
       }
-      return registeredHomes;
     });
     // return registeredHomes;
   }
