@@ -31,11 +31,7 @@ module.exports = class Home {
     const homeDataPath = path.join(rootDir, 'data', 'homes.json');
     fs.readFile(homeDataPath, (err, data) => {
       console.log("File read:", err, data);
-      if(!err){
-        callback(JSON.parse(data));
-      }else{
-        callback([]);
-      }
+      callback(!err ? JSON.parse(data) : []);
     });
     // return registeredHomes;
   }
