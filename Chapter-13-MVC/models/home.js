@@ -30,7 +30,7 @@ module.exports = class Home {
   static fetchAll(callback) {
     const homeDataPath = path.join(rootDir, 'data', 'homes.json');
     fs.readFile(homeDataPath, (err, data) => {
-      console.log("File read:", err, data);
+      // console.log("File read:", err, data);
       callback(!err ? JSON.parse(data) : []);
     });
     // return registeredHomes;
