@@ -1,0 +1,103 @@
+<%- include('../partials/head') %>
+</head>
+<body class="bg-slate-50 min-h-screen font-sans text-slate-800 antialiased p-6 sm:p-10">
+
+  <%- include('../partials/nav') %>
+
+  <main class="max-w-6xl mx-auto px-4 py-8">
+
+  <h2 class="text-3xl sm:text-4xl text-slate-800 font-bold text-center mb-10 tracking-tight">
+    Hey host! Here are your homes:
+  </h2>
+
+  <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 list-none p-0">
+
+    <% registeredHomes.forEach(home => { %>
+
+      <li class="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl 
+                 border border-slate-100 transition-all duration-300 
+                 hover:-translate-y-2">
+
+        <!-- Image -->
+        <div class="relative h-56 overflow-hidden bg-slate-100">
+
+          <img
+            src="<%= home.photoURL %>"
+            alt="<%= home.houseName %>"
+            class="w-full h-full object-cover group-hover:scale-105 
+                   transition-transform duration-500"
+          />
+
+          <!-- Rating -->
+          <div class="absolute top-4 right-4 bg-white/95 backdrop-blur-sm 
+                      px-3 py-1.5 rounded-full shadow-md flex items-center gap-1">
+            <span class="text-yellow-500">★</span>
+            <span class="font-bold text-slate-800">
+              <%= home.rating %>
+            </span>
+          </div>
+
+        </div>
+
+
+        <!-- Card Content -->
+        <div class="p-5">
+
+          <!-- House Name -->
+          <h3 class="text-xl font-bold text-slate-800 mb-2 
+                     truncate">
+            <%= home.houseName %>
+          </h3>
+
+          <!-- Location -->
+          <div class="flex items-center gap-2 text-slate-500 mb-4">
+            <span class="text-lg">📍</span>
+            <p class="truncate">
+              <%= home.location %>
+            </p>
+          </div>
+
+          <!-- Divider -->
+          <div class="border-t border-slate-100 mb-4"></div>
+
+          <!-- Price + Button -->
+          <div class="flex items-center justify-between">
+
+            <div>
+              <span class="text-2xl font-bold text-rose-600">
+                ₹<%= home.price %>
+              </span>
+              <span class="text-sm text-slate-500">
+                / night
+              </span>
+            </div>
+
+            <button
+              class="bg-blue-500 hover:bg-blue-600 text-white 
+                     px-4 py-2 rounded-lg font-semibold 
+                     transition duration-200 shadow-sm 
+                     hover:shadow-md">
+              Edit
+            </button>
+
+            <button
+              class="bg-rose-500 hover:bg-rose-600 text-white 
+                     px-4 py-2 rounded-lg font-semibold 
+                     transition duration-200 shadow-sm 
+                     hover:shadow-md">
+              Delete
+            </button>
+
+          </div>
+
+        </div>
+
+      </li>
+
+    <% }) %>
+
+  </ul>
+
+</main>
+</body>
+</html>
