@@ -4,7 +4,7 @@ const path = require('path');
 const rootDir = require('../utils/pathUtil');
 
 
-    const homeDataPath = path.join(rootDir, 'data', 'homes.json');
+const homeDataPath = path.join(rootDir, 'data', 'homes.json');
 
 // Fake database
 // let registeredHomes = [];
@@ -20,9 +20,14 @@ module.exports = class Home {
 
   // Home object banake usko save karne ki koshish ki ja rahi hai
   save() {
-    this.id = Math.random().toString();
     Home.fetchAll(registeredHomes => {
-      registeredHomes.push(this);
+      if(this.id){        // Edit home case
+        registeredHomes = registeredHomes.map(home =>  home.id === this.id ? this : home)
+      }
+      else{               // Add home case
+        this.id = Math.random().toString();
+        registeredHomes.push(this); 
+      }
     fs.writeFile(homeDataPath, JSON.stringify(registeredHomes), error => {
       console.log("File writing concluded", error);
     });
