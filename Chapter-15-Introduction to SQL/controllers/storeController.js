@@ -5,7 +5,7 @@ exports.getHomes = (req, res, next) => {
   Home.fetchAll().then(([registeredHomes]) => {
     res.render('store/home-List', { 
       registeredHomes: registeredHomes, 
-      pageTitle: 'airbnb home', 
+      pageTitle: 'Home List', 
       currentPage: "Home", 
     });
   });
