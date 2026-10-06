@@ -13,16 +13,9 @@ exports.postAddHome = (req, res, next) => {
   const { houseName, price, location, rating, photoURL, description, } = req.body;
 
   const home = new Home(houseName, price, location, rating, photoURL, description);
-  home.save();
-  // registeredHomes.push(req.body
-  //   {
-  //   houseName: req.body.houseName, 
-  //   price: req.body.price, 
-  //   location: req.body.location, 
-  //   rating: req.body.rating,
-  //   photoURL: req.body.photoURL
-  // }
-  // );
+  home.save().then(() => {
+    console.log('Home saved successfully');
+  });
   res.redirect('/host/host-home-List');
 };
 

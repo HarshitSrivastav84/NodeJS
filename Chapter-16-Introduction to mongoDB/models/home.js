@@ -1,5 +1,5 @@
-// Core module
-const db = require('../utils/database');
+const {getDb} = require('../utils/database');
+
 
 module.exports = class Home {
   constructor(houseName, price, location, rating, photoURL, description, id) {
@@ -11,30 +11,21 @@ module.exports = class Home {
     this.description = description;
     this.id = id;
   }
-
-  // Home object banake usko save karne ki koshish ki ja rahi hai
+  
+// Returns promise
   save() {
-    if(this.id){    // Update
-       return db.execute('UPDATE homes SET houseName=?, price=?, location=?, rating=?, photoURL=?, description=? WHERE id=?', [this.houseName, this.price, this.location, this.rating, this.photoURL, this.description, this.id]);
-    }
-    else{
-      return db.execute(
-        // `INSERT INTO homes (houseName, price, location, rating, photoURL, description) VALUES ('${this.houseName}', ${this.price}, '${this.location}', ${this.rating}, '${this.photoURL}', '${this.description}')`
-        'INSERT INTO homes (houseName, price, location, rating, photoURL, description) VALUES (?, ?, ?, ?, ?, ?)', [this.houseName, this.price, this.location, this.rating, this.photoURL, this.description]
-      );
-    }
+    const db = getDb();
+    return db.collection('mongo-homes').insertOne(this);
   }
   
   static fetchAll() {
-    return db.execute('SELECT * FROM homes')
   }
   
   static findById(homeId, callback) {
-    return db.execute('SELECT * FROM homes WHERE id=?', [homeId]);
+
   }
   
   static deleteById(homeId, callback) {
-    return db.execute('DELETE FROM homes WHERE id=?', [homeId]);
 
   }
 
