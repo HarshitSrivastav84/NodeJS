@@ -11,7 +11,7 @@
 
     <form action="/host/<%= editing ? "edit-home" : "add-home" %>" method="POST" class="space-y-4">
 
-      <input type="hidden" name="id" value="<%= editing ? home.id : '' %>">
+      <input type="hidden" name="id" value="<%= editing ? home._id : '' %>">
 
       <input
         type="text"

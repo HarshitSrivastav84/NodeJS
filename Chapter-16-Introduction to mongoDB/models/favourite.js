@@ -1,32 +1,24 @@
 // Core module
-const fs = require('fs');
-const path = require('path');
-const rootDir = require('../utils/pathUtil');
-
-const favouriteDataPath = path.join(rootDir, 'data', 'favourite.json');
+const {getDb} = require('../utils/database');
 
 module.exports = class Favourite {
 
-  static addToFavourite(homeId, callback) {
-    Favourite.getFavourites((favourites) => {
+  constructor(houseId){
+    this.houseId = houseId;
+  }
 
-      // To check home already exists
-      if (favourites.includes(homeId)) {
-        callback("Home is already marked as favourite");
-      }
-      else {
-        favourites.push(homeId);
-
-        // For writing favourite
-        fs.writeFile(favouriteDataPath, JSON.stringify(favourites), callback);
-      }
-    });
+  save(){
+    const db = getDb();
+    return db.collection('favourites').insertOne(this);
+  }
+  
+  static getFavourites() {
+    const db = getDb();
+    return db.collection('favourites').find().toArray();
   };
 
-  static getFavourites(callback) {
-    fs.readFile(favouriteDataPath, (err, data) => {
-      callback(!err ? JSON.parse(data) : []);
-    });
+  static deleteById(homeId, callback) {
+    
   }
 
 }

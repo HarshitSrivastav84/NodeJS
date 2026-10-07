@@ -20,7 +20,7 @@ exports.postAddHome = (req, res, next) => {
 };
 
 exports.getHostHomes = (req, res, next) => {
-  Home.fetchAll().then(([registeredHomes]) => {
+  Home.fetchAll().then(registeredHomes => {
     res.render('host/host-home-List', {
       registeredHomes: registeredHomes,
       pageTitle: 'Host homes list',
@@ -33,8 +33,7 @@ exports.getEditHome = (req, res, next) => {
   const homeId = req.params.homeId;
   const editing = req.query.editing === 'true';
 
-  Home.findById(homeId).then(([homes]) => {
-    const home = homes[0];
+  Home.findById(homeId).then(home => {
     if (!home) {
       console.log("Home not found");
       return res.redirect("/host/host-home-List");
